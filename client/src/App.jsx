@@ -16,15 +16,17 @@ const client = StreamChat.getInstance(apiKey);
 const authToken = cookies.get("token");
 
 if (authToken) {
-  client.connectUser({
-    token: cookies.get("token"),
-    username: cookies.get("username"),
-    fullName: cookies.get("fullName"),
-    userId: cookies.get("userId"),
-    phoneNumber: cookies.get("phoneNumber"),
-    avatarURL: cookies.get("avatarURL"),
-    hashedPassword: cookies.get("hashedPassword"),
-  });
+  client.connectUser(
+    {
+      id: cookies.get("userId"),
+      name: cookies.get("username"),
+      fullName: cookies.get("fullName"),
+      image: cookies.get("avatarURL"),
+      hashedPassword: cookies.get("hashedPassword"),
+      phoneNumber: cookies.get("phoneNumber"),
+    },
+    authToken
+  );
 }
 
 const App = () => {

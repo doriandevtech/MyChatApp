@@ -16,7 +16,7 @@ const SideBar = ({ logout }) => (
       </div>
     </div>
     <div className="channel-list__sidebar__icon2">
-      <div className="icon1__inner" onCLick={logout}>
+      <div className="icon1__inner" onClick={logout}>
         <img src={LogoutIcon} alt="Logout" width="30" />
       </div>
     </div>
@@ -29,7 +29,12 @@ const CompanyHeader = () => (
   </div>
 );
 
-const ChannelListContainer = () => {
+const ChannelListContainer = ({
+  isCreating,
+  setIsCreating,
+  setIsEditing,
+  setCreateType,
+}) => {
   const logout = () => {
     cookies.remove("token");
     cookies.remove("userId");
@@ -60,7 +65,14 @@ const ChannelListContainer = () => {
           filters={{}}
           channelRenderFilterFn={() => {}}
           List={(listProps) => (
-            <TeamChannelList {...listProps} type="messaging" />
+            <TeamChannelList
+              {...listProps}
+              type="messaging"
+              isCreating={isCreating}
+              setIsCreating={setIsCreating}
+              setIsEditing={setIsEditing}
+              setCreateType={setCreateType}
+            />
           )}
           Preview={(previewProps) => (
             <TeamChannelPreview {...previewProps} type="messaging" />

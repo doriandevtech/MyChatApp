@@ -3,9 +3,10 @@ import { useChatContext } from "stream-chat-react";
 
 import { UserList } from "./";
 import { ClassCreateChannel, CloseCreateChannel } from "../assets";
-import { useState } from "react";
 
 const ChannelNameInput = ({ channelName = "", setChannelName }) => {
+  const [channelName, setChannelName] = useState("");
+
   const handleChange = (event) => {
     event.preventDefault();
 
@@ -26,6 +27,8 @@ const ChannelNameInput = ({ channelName = "", setChannelName }) => {
 };
 
 function CreateChannel({ createType, setIsCreating }) {
+  const { client, setActiveChannel } = useChatContext();
+  const [selectedUsers, setSelectedUsers] = useState([client.userID || ""]);
   const [channelName, setChannelName] = useState("");
 
   return (
@@ -44,7 +47,15 @@ function CreateChannel({ createType, setIsCreating }) {
           setChannelName={setChannelName}
         />
       )}
-      <UserList />
+      <UserList setSelectedUsers={setSelectedUsers} />
+      <div
+        className="create-channel__button-wrapper"
+        onClick={createChannelFunction}
+      >
+        <p>
+          {createType === "team" ? "Create Channel" : "Create Message Group"}
+        </p>
+      </div>
     </div>
   );
 }

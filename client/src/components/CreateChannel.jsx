@@ -31,6 +31,14 @@ function CreateChannel({ createType, setIsCreating }) {
   const [selectedUsers, setSelectedUsers] = useState([client.userID || ""]);
   const [channelName, setChannelName] = useState("");
 
+  const createChannel = async (e) => {
+    e.preventDefault();
+
+    try {
+      const newChannel = await client.channel(createType);
+    } catch (error) {}
+  };
+
   return (
     <div className="create-channel__conatainer">
       <div className="create_channel__header">

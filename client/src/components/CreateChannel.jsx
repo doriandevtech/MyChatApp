@@ -35,8 +35,20 @@ function CreateChannel({ createType, setIsCreating }) {
     e.preventDefault();
 
     try {
-      const newChannel = await client.channel(createType);
-    } catch (error) {}
+      const newChannel = await client.channel(createType, channelName, {
+        name: channelName,
+        members: selectedUsers,
+      });
+
+      await newChannel.watch();
+
+      setChannelName("");
+      setIsCreating(false);
+      setSelectedUsers([client.userID]);
+      setActiveChannel(newChannel);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
